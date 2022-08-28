@@ -6,5 +6,5 @@ export function useTheme () {
     const colorScheme = useColorScheme();
     const theme = getTheme(colorScheme)
 
-    return theme;
+    return [theme, colorScheme];
 }
