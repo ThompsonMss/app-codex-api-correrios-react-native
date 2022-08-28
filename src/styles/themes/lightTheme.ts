@@ -9,6 +9,7 @@ export const lightTheme: InterfaceTheme = {
 
     background: "#F2F2F6",
     backgroundInverse: "#DDD",
+    colorBorder: "#262626",
     textColorInput: "#3e3e3e",
     textFont: "#3e3e3e"
 }

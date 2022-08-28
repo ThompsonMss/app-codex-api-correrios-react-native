@@ -1,52 +1,32 @@
 import {
-    Button,
-    ContainerInput,
+    Scroll,
     ContainerLogo,
-    ContainerSearchObject,
-    IconMagnifyingGlass,
-    IconQrCode,
-    Input,
-    Logo,
-    Scroll
+    Logo
 } from "./styles";
 
 import { ContainerApp } from "@components/ContainerApp";
+import { SearchObject } from "./components/SearchObject";
+
 import logotipo from "@assets/images/logotipo.png"
-import { useState } from "react";
+import { CardItemObject } from "./components/CardItemObject";
 
 export function Main () {
 
-    const [onFocusInput, setOnFocusInput] = useState(false);
-
     return (
         <ContainerApp>
-            <Scroll>
+            <Scroll stickyHeaderIndices={[1]}>
+                <ContainerLogo><Logo source={logotipo} /></ContainerLogo>
+                <SearchObject />
 
-                <ContainerLogo>
-                    <Logo source={logotipo} />
-                </ContainerLogo>
-
-                <ContainerSearchObject>
-
-                    <ContainerInput
-                        isFocused={onFocusInput}
-                    >
-                        <Button>
-                            <IconQrCode />
-                        </Button>
-                        <Input
-                            placeholder="Código de rastreio"
-                            onBlur={() => setOnFocusInput(false)}
-                            onFocus={() => setOnFocusInput(true)}
-                        />
-                        <Button>
-                            <IconMagnifyingGlass />
-                        </Button>
-                    </ContainerInput>
-                </ContainerSearchObject>
-
+                <CardItemObject />
+                <CardItemObject />
+                <CardItemObject />
+                <CardItemObject />
+                <CardItemObject />
+                <CardItemObject />
+                <CardItemObject />
+                <CardItemObject />
             </Scroll>
-
         </ContainerApp>
     );
 }

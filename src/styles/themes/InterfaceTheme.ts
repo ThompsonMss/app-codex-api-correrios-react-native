@@ -7,6 +7,7 @@ export interface InterfaceTheme {
 
     background: string
     backgroundInverse: string
+    colorBorder: string
     textColorInput: string
     textFont: string
 }

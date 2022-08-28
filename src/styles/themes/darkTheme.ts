@@ -9,6 +9,7 @@ export const darkTheme: InterfaceTheme = {
 
     background: "#070707",
     backgroundInverse: "#262626",
+    colorBorder: "#1A1A1A",
     textColorInput: "#DDD",
     textFont: "#808080"
 }
