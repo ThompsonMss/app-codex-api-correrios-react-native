@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 export const ContainerPage = styled.View`
     padding: 0px 20px;
+    flex: 1;
 `
 
 export const HeaderNavigation = styled.View`
@@ -21,9 +22,12 @@ export const HeaderNavigation = styled.View`
 
 export const Scroll = styled.ScrollView.attrs({
     contentContainerStyle: {
-        paddingBottom: 66
+        paddingBottom: 0,
+        flexGrow: 1
     }
-})``;
+})`
+    margin-bottom: 20px;
+`;
 
 export const ButtonGoBack = styled.TouchableOpacity`
     z-index: 2;

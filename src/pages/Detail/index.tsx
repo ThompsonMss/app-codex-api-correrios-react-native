@@ -17,6 +17,8 @@ import {
     Scroll
 } from "./styles";
 import { ContainerApp } from "@components/ContainerApp";
+import { ButtonWithIcon } from "@components/ButtonWithIcon";
+import { View } from "react-native";
 
 export function Detail () {
     return (
@@ -31,6 +33,7 @@ export function Detail () {
                 </HeaderNavigation>
 
                 <Scroll>
+
                     <ContainerNameOfObject>
                         <ContainerLabelNameOfObject>Encomenda 01</ContainerLabelNameOfObject>
                         <ButtonEdit>
@@ -55,6 +58,12 @@ export function Detail () {
                     </DescribleOfObject>
 
                 </Scroll>
+
+                <ButtonWithIcon
+                    icon="trash"
+                    label="Remover Objeto"
+                    onPress={() => alert('Thompson')}
+                />
 
             </ContainerPage>
         </ContainerApp>
