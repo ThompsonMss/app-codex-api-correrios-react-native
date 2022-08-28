@@ -17,9 +17,14 @@ import {
 import favicon from "@assets/favicon.png";
 import { CaretRight } from "phosphor-react-native";
 
-export function CardItemObject () {
+interface InterfaceCardItemObject {
+    onPress: (...args: any) => any
+}
+
+export function CardItemObject ({ onPress }: InterfaceCardItemObject) {
+
     return (
-        <Container>
+        <Container onPress={onPress}>
             <StatusObject status="primary" />
             <Information>
                 <ContainerIcon>
