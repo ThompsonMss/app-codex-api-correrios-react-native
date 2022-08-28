@@ -29,7 +29,7 @@ export function CardItemObject () {
                 <WrapperInfo>
                     <NameOfObject>Encomenda 01</NameOfObject>
                     <CodeOfObject>LB2021343434P9</CodeOfObject>
-                    <DescCurrentStatus>Objeto em trâsito. Por favor aguarda na...</DescCurrentStatus>
+                    <DescCurrentStatus numberOfLines={1}>Objeto em trâsito. Por favor aguarda na...</DescCurrentStatus>
                     <DatePostagenObject>10/07/2022</DatePostagenObject>
                 </WrapperInfo>
 
