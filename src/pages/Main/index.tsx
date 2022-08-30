@@ -20,7 +20,7 @@ export function Main ({ navigation }) {
         <ContainerApp>
             <Scroll stickyHeaderIndices={[1]}>
                 <ContainerLogo><Logo source={logotipo} /></ContainerLogo>
-                <SearchObject />
+                <SearchObject navigation={navigation} />
 
                 <CardItemObject onPress={handleGoToDetail} />
                 <CardItemObject onPress={handleGoToDetail} />

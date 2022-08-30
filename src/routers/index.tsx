@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Main } from "@pages/Main";
 import { Detail } from "@pages/Detail";
+import { ReadQrCode } from "@pages/ReadQrCode";
 
 export function Routers () {
 
@@ -13,6 +14,7 @@ export function Routers () {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Home" component={Main} />
                 <Stack.Screen name="Detail" component={Detail} />
+                <Stack.Screen name="ReadQrCode" component={ReadQrCode} />
             </Stack.Navigator>
         </NavigationContainer>
     );

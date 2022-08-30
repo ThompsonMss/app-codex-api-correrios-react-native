@@ -10,15 +10,19 @@ import {
     Input
 } from "./styles";
 
-export function SearchObject () {
+export function SearchObject ({ navigation }: any) {
 
     const [onFocusInput, setOnFocusInput] = useState(false);
+
+    function handleGoToReadQrCode () {
+        navigation.navigate('ReadQrCode')
+    }
 
     return (
         <ContainerSearchObject>
             <ContainerInput isFocused={onFocusInput}>
 
-                <Button><IconQrCode /></Button>
+                <Button onPress={handleGoToReadQrCode}><IconQrCode /></Button>
 
                 <Input
                     placeholder="Código de rastreio"
