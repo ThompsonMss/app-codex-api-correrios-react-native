@@ -1,6 +1,8 @@
 import styled from "styled-components/native";
 
-export const Container = styled.TouchableOpacity`
+type ColorButton = "action" | "success";
+
+export const Container = styled.TouchableOpacity<{ color: ColorButton }>`
     width: 100%;
     height: 50px;
 
@@ -11,7 +13,7 @@ export const Container = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
 
-    background-color: ${(props) => props.theme.action};
+    background-color: ${(props) => props.theme[props.color]};
 `;
 
 export const Text = styled.Text`
