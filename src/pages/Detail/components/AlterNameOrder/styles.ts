@@ -38,7 +38,9 @@ export const IconXCircle = styled(XCircle).attrs(({ theme }) => ({
     size: 28
 }))``;
 
-export const Input = styled.TextInput<{ focused: boolean }>`
+export const Input = styled.TextInput.attrs(({ theme }) => ({
+    selectionColor: theme.textColorInput,
+})) <{ focused: boolean }>`
     height: 47px;
     width: 100%;
 

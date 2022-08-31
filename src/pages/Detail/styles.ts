@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 export const ContainerPage = styled.View`
     padding: 0px 20px;
+    padding-bottom: 20px;
     flex: 1;
 `
 

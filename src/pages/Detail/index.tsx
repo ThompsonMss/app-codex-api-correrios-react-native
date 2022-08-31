@@ -24,7 +24,7 @@ import { AlterNameOrder } from "./components/AlterNameOrder";
 
 import { Modalize } from "react-native-modalize";
 
-export function Detail () {
+export function Detail ({ navigation }) {
 
     const modalizeRef = React.useRef<Modalize>(null);
 
@@ -32,13 +32,17 @@ export function Detail () {
         modalizeRef.current?.open();
     };
 
+    function handleConfirmDelete () {
+        navigation.navigate('ConfirmedDelete');
+    }
+
     return (
         <>
             <ContainerApp>
                 <ContainerPage>
 
                     <HeaderNavigation>
-                        <ButtonGoBack>
+                        <ButtonGoBack onPress={navigation.goBack}>
                             <IconCaretLeft />
                         </ButtonGoBack>
                         <ContainerLabelHeader>LB2021345445P8</ContainerLabelHeader>
@@ -74,7 +78,7 @@ export function Detail () {
                     <ButtonWithIcon
                         icon="trash"
                         label="Remover Objeto"
-                        onPress={() => alert('Thompson')}
+                        onPress={handleConfirmDelete}
                     />
 
                 </ContainerPage>
