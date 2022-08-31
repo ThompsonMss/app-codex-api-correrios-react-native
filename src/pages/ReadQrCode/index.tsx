@@ -1,8 +1,26 @@
 import React from "react";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import { Button, StyleSheet, Text, View } from "react-native";
+import {
+    BottomMask,
+    ButtonGoBack,
+    CenterMask,
+    Container,
+    ContainerLabelHeader,
+    ContainerMask,
+    ContainerNotPermission,
+    FillCenter,
+    FillCenterMask,
+    HeaderNavigation,
+    IconCaretLeft,
+    Mask,
+    TextNotPermission,
+    TextTopMask,
+    TopMask
+} from "./styles";
 
-export function ReadQrCode () {
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StyleSheet } from "react-native";
+
+export function ReadQrCode ({ navigation }) {
 
     const [hasPermission, setHasPermission] = React.useState(null);
     const [scanned, setScanned] = React.useState(false);
@@ -17,26 +35,54 @@ export function ReadQrCode () {
     }, []);
 
     const handleBarCodeScanned = ({ type, data }) => {
-        setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        setScanned(true); // Evitando loop.
+
     };
 
     if (hasPermission === null) {
-        return <Text>Requesting for camera permission</Text>;
+        return (
+            <ContainerNotPermission>
+                <TextNotPermission>Requisitando permissão para a câmera.</TextNotPermission>
+            </ContainerNotPermission>
+        );
     }
     if (hasPermission === false) {
-        return <Text>No access to camera</Text>;
+        return (
+            <ContainerNotPermission>
+                <TextNotPermission>Sem acesso a câmera.</TextNotPermission>
+            </ContainerNotPermission>
+        );
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: 'black' }}>
+        <Container>
             <BarCodeScanner
                 onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                 style={StyleSheet.absoluteFillObject}
-            >
+            />
 
-                <View style={{ width: 50, height: 100, backgroundColor: 'red' }}></View>
-            </BarCodeScanner>
-        </View>
+            <ContainerMask>
+                <HeaderNavigation>
+                    <ButtonGoBack onPress={navigation.goBack}>
+                        <IconCaretLeft />
+                    </ButtonGoBack>
+                    <ContainerLabelHeader>Voltar</ContainerLabelHeader>
+                </HeaderNavigation>
+
+                <Mask>
+                    <TopMask>
+                        <TextTopMask>Posicione o QrCode da encomenda na marcação abaixo e aguarde.</TextTopMask>
+                    </TopMask>
+
+                    <CenterMask>
+                        <FillCenter />
+                        <FillCenterMask />
+                        <FillCenter />
+                    </CenterMask>
+
+                    <BottomMask />
+                </Mask>
+            </ContainerMask>
+        </Container>
     );
 }
