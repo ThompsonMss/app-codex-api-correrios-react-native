@@ -1,6 +1,7 @@
 import { ThemeProvider } from 'styled-components'
 
 import { useTheme } from './hooks/useTheme';
+import { MainContext } from './context/MainContext';
 import { Routers } from './routers';
 
 export function IndexApp () {
@@ -9,7 +10,9 @@ export function IndexApp () {
 
     return (
         <ThemeProvider theme={theme}>
-            <Routers />
+            <MainContext>
+                <Routers />
+            </MainContext>
         </ThemeProvider>
 
     );

@@ -18,7 +18,7 @@ interface DataResponseSuccess {
       }
       tipo: string;
     };
-    unidadeDestino: {
+    unidadeDestino?: {
       endereco: {
         cidade: string;
         uf: string;
@@ -27,6 +27,9 @@ interface DataResponseSuccess {
     };
     urlIcone: string;
   }>;
+  tipoPostal: {
+    categoria: string;
+  },
 }
 
 interface DataResponseError {
@@ -37,6 +40,7 @@ interface DataResponseError {
 export interface InterfaceDadosObjeto {
   codigoObjeto: string;
   eventos: Array<InterfaceEventosObjeto>;
+  typeOfDelivery: string;
 }
 
 export interface InterfaceEventosObjeto {
@@ -47,14 +51,14 @@ export interface InterfaceEventosObjeto {
     endereco: string;
     tipo: string;
   };
-  unidadeDestino: {
+  unidadeDestino?: {
     endereco: string;
     tipo: string;
   };
   urlIcone: string;
 }
 
-export async function obterDadosRastreioObjeto(client: AxiosInstance, codRastreio: string): Promise<InterfaceDadosObjeto> {
+export async function obterDadosRastreioObjeto (client: AxiosInstance, codRastreio: string): Promise<InterfaceDadosObjeto> {
 
   const dataResponse: ServerResponse<DataResponseSuccess | DataResponseError>
     = await client.get(`/sro-rastro/${codRastreio}`);
@@ -65,7 +69,7 @@ export async function obterDadosRastreioObjeto(client: AxiosInstance, codRastrei
     throw new Error(objeto.mensagem);
 
   const eventos: Array<InterfaceEventosObjeto> = objeto.eventos.map(item => {
-    return {
+    const evento: InterfaceEventosObjeto = {
       codigoStatus: item.codigo,
       descricao: item.descricao,
       dataStatus: item.dtHrCriado,
@@ -73,17 +77,23 @@ export async function obterDadosRastreioObjeto(client: AxiosInstance, codRastrei
       unidadeOrigem: {
         endereco: `${item.unidade.endereco.cidade} - ${item.unidade.endereco.uf}`,
         tipo: item.unidade.tipo
-      },
-      unidadeDestino: {
-        endereco: `${item.unidadeDestino.endereco.cidade} - ${item.unidadeDestino.endereco.uf}`,
-        tipo: item.unidadeDestino.tipo
       }
     }
+
+    if (item.unidadeDestino) {
+      evento.unidadeDestino = {
+        endereco: `${item.unidadeDestino.endereco.cidade} - ${item.unidadeDestino.endereco.uf}`,
+        tipo: item.unidadeDestino.tipo
+      };
+    }
+
+    return evento;
   });
 
   return {
     codigoObjeto: objeto.codObjeto,
-    eventos: eventos
+    eventos: eventos,
+    typeOfDelivery: objeto.tipoPostal.categoria
   }
 
 }

@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import {
     Scroll,
     ContainerLogo,
@@ -19,7 +21,13 @@ import waterMarkDark from "@assets/images/back-logo.png";
 import waterMarkLight from "@assets/images/back-logo-light.png";
 import { useTheme } from "@hooks/useTheme";
 
+import { ObjectContext } from "../../context/MainContext";
+
 export function Main ({ navigation }) {
+
+    const { objects } = useContext(ObjectContext);
+
+    const objectIsEmpty = !objects.length;
 
     function handleGoToDetail () {
         navigation.navigate('Detail')
@@ -31,15 +39,20 @@ export function Main ({ navigation }) {
     return (
         <ContainerApp>
             <Scroll stickyHeaderIndices={[1]}>
+
                 <ContainerLogo><Logo source={logotipo} /></ContainerLogo>
                 <SearchObject navigation={navigation} />
 
-                <EmptyObject>
-                    <IconXcircle />
-                    <TextEmptyObject>Você não está rastreando nenhum objeto no momento.</TextEmptyObject>
-                </EmptyObject>
+                {objectIsEmpty && (
+                    <EmptyObject>
+                        <IconXcircle />
+                        <TextEmptyObject>Você não está rastreando nenhum objeto no momento.</TextEmptyObject>
+                    </EmptyObject>
+                )}
 
-                <CardItemObject onPress={handleGoToDetail} />
+                {objects.map(object => (
+                    <CardItemObject key={object.uuid} onPress={handleGoToDetail} />
+                ))}
 
             </Scroll>
 

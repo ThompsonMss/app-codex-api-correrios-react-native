@@ -1,3 +1,4 @@
+import { ActivityIndicator } from "react-native";
 import { design } from "@styles/design";
 import { MagnifyingGlass, QrCode } from "phosphor-react-native";
 import { css } from "styled-components";
@@ -61,7 +62,7 @@ export const IconMagnifyingGlass = styled(MagnifyingGlass).attrs(({ theme }) => 
 export const Input = styled.TextInput.attrs(({ theme }) => ({
     placeholderTextColor: theme.textFont,
     selectionColor: theme.textColorInput,
-    returnKeyType: "search"
+    returnKeyType: "send"
 }))`
 
     flex: 1;
@@ -80,3 +81,7 @@ export const Button = styled.TouchableOpacity`
 
     padding: 0 8px;
 `
+
+export const Indicator = styled(ActivityIndicator).attrs(({ theme }) => ({
+    color: theme.textColorInput
+}))``
