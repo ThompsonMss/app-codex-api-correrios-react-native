@@ -21,7 +21,7 @@ export interface InterfaceObject {
     codeOfObject: string;
     typeOfDelivery: string;
     currentStatus: string;
-    lastDateOfObject: Date;
+    lastDateOfObject: string;
     lastDescOfObject: string;
     lastUrlIcon: string;
 }

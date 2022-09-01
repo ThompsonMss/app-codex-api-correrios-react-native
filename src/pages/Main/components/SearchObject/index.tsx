@@ -16,7 +16,7 @@ import { apiCorreios } from '../../../../services/apiCorreios';
 import { ObjectContext } from "../../../../context/MainContext";
 import { parseISO } from "date-fns";
 
-export function SearchObject ({ navigation, route }: any) {
+export function SearchObject({ navigation, route }: any) {
 
     const { objects, insertObject } = useContext(ObjectContext);
 
@@ -34,11 +34,11 @@ export function SearchObject ({ navigation, route }: any) {
         }
     }, [qrCodecodeObject]);
 
-    function handleGoToReadQrCode () {
+    function handleGoToReadQrCode() {
         navigation.navigate('ReadQrCode')
     }
 
-    async function handleSearchObject (code: string) {
+    async function handleSearchObject(code: string) {
         try {
 
             setLoad(true);
@@ -50,7 +50,7 @@ export function SearchObject ({ navigation, route }: any) {
                 aliasOfObject: `Encomenda ${objects.length + 1}`,
                 codeOfObject: code,
                 currentStatus: lastEvent.codigoStatus === "BDE" ? "ENTREGUE" : "PENDENTE",
-                lastDateOfObject: parseISO(lastEvent.dataStatus),
+                lastDateOfObject: lastEvent.dataStatus,
                 lastDescOfObject: lastEvent.descricao,
                 typeOfDelivery: data.typeOfDelivery,
                 lastUrlIcon: lastEvent.urlIcone

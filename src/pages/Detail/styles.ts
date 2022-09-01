@@ -1,3 +1,4 @@
+import { ActivityIndicator } from 'react-native';
 import { ContainerApp } from "@components/ContainerApp";
 import { CaretLeft, Pencil } from "phosphor-react-native";
 import styled from "styled-components/native";
@@ -137,3 +138,15 @@ export const BadgeStatus = styled.View`
     left: -10px;
     top: 57%;
 `;
+
+export const ContainerLoading = styled.View`
+    flex: 1;
+
+    align-items: center;
+    justify-content: center;
+`;
+
+export const Indicator = styled(ActivityIndicator).attrs(({ theme }) => ({
+    color: theme.textFont,
+    size: 'large'
+}))``;

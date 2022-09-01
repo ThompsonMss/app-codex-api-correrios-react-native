@@ -15,7 +15,7 @@ import {
 } from "./styles";
 
 import { InterfaceObject } from "../../../../reducers/mainReducer";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import pt from "date-fns/locale/pt";
 
 interface InterfaceCardItemObject {
@@ -37,7 +37,7 @@ export function CardItemObject ({ onPress, object }: InterfaceCardItemObject) {
                     <NameOfObject>{object.aliasOfObject}</NameOfObject>
                     <CodeOfObject>{object.codeOfObject}</CodeOfObject>
                     <DescCurrentStatus numberOfLines={1}>{object.lastDescOfObject}...</DescCurrentStatus>
-                    <DatePostagenObject>{format(object.lastDateOfObject, "dd/MM/yyyy", { locale: pt })}</DatePostagenObject>
+                    <DatePostagenObject>{format(parseISO(object.lastDateOfObject), "dd/MM/yyyy", { locale: pt })}</DatePostagenObject>
                 </WrapperInfo>
 
                 <Action>

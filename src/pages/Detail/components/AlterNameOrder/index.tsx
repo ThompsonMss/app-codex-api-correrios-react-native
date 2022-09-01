@@ -17,15 +17,21 @@ import { Platform } from 'react-native';
 interface InterfaceAlterNameOrder {
     refModal: React.MutableRefObject<Modalize>;
     nameOfObject: string;
+    onAction: (newName: string) => void;
 }
 
-export function AlterNameOrder ({ refModal, nameOfObject }: InterfaceAlterNameOrder) {
+export function AlterNameOrder({ refModal, nameOfObject, onAction }: InterfaceAlterNameOrder) {
 
     const [name, setName] = useState<string>(nameOfObject);
     const [inputFocused, setInputFocused] = React.useState(false)
 
-    function handleOnCloseModal () {
+    function handleOnCloseModal() {
         refModal.current.close();
+    }
+
+    function handleEdit() {
+        onAction(name);
+        handleOnCloseModal();
     }
 
     return (
@@ -47,7 +53,7 @@ export function AlterNameOrder ({ refModal, nameOfObject }: InterfaceAlterNameOr
                         onFocus={() => setInputFocused(true)}
                         value="Encomenda 01"
                         autoFocus
-                        onSubmitEditing={() => alert('oi')}
+                        onSubmitEditing={handleEdit}
                         value={name}
                         onChangeText={text => setName(text)}
                     />
@@ -56,7 +62,7 @@ export function AlterNameOrder ({ refModal, nameOfObject }: InterfaceAlterNameOr
                         icon="success"
                         label="Salvar"
                         color='success'
-                        onPress={() => alert('Thompson')}
+                        onPress={handleEdit}
                     />
                 </ContainerModal>
             }

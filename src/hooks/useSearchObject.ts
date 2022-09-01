@@ -13,7 +13,7 @@ export function useSearchObject(codeObject: string) {
     apiCorreios.obterDadosRastreioObjeto(codeObject).then(data => {
       setObject(data);
     }).catch(error => {
-      setError(error);
+      setError(error.message);
     }).finally(() => {
       setLoading(false);
     });
