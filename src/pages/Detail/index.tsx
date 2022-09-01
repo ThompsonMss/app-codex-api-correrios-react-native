@@ -75,7 +75,8 @@ export function Detail({ navigation, route }) {
 
     function updateLastEventOfObject() {
 
-        const lastEvent = object.eventos.shift();
+        const events = object.eventos.slice();
+        const lastEvent = events.shift();
 
         updateLastEventAndStatusObject({
             uuid: uuid,
@@ -133,7 +134,7 @@ export function Detail({ navigation, route }) {
                         )}
 
                         {object?.eventos.map(evento => (
-                            <DescribleOfObject>
+                            <DescribleOfObject key={evento.descricao + evento.dataStatus}>
                                 <BadgeStatus />
                                 <TextDescrible>{evento.descricao}{evento.unidadeOrigem.tipo && evento.unidadeOrigem.endereco ? `. De ${evento.unidadeOrigem.tipo} em ${evento.unidadeOrigem.endereco}` : ''}{evento?.unidadeDestino ? ` para ${evento.unidadeDestino.tipo} em ${evento.unidadeDestino.endereco}.` : '.'}</TextDescrible>
                                 <DatePostagemDescrible>{format(parseISO(evento.dataStatus), "dd/MM/yyyy HH:mm", { locale: pt })}</DatePostagemDescrible>
