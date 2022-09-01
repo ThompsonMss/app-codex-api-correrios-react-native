@@ -14,28 +14,30 @@ import {
     WrapperInfo
 } from "./styles";
 
-import favicon from "@assets/favicon.png";
-import { CaretRight } from "phosphor-react-native";
+import { InterfaceObject } from "../../../../reducers/mainReducer";
+import { format } from "date-fns";
+import pt from "date-fns/locale/pt";
 
 interface InterfaceCardItemObject {
-    onPress: (...args: any) => any
+    onPress: (...args: any) => any,
+    object: InterfaceObject
 }
 
-export function CardItemObject ({ onPress }: InterfaceCardItemObject) {
+export function CardItemObject ({ onPress, object }: InterfaceCardItemObject) {
 
     return (
         <Container onPress={onPress}>
-            <StatusObject status="primary" />
+            <StatusObject status={object.currentStatus === "ENTREGUE" ? "success" : "primary"} />
             <Information>
                 <ContainerIcon>
-                    <Icon><ImgIcon source={favicon} /></Icon>
+                    <Icon><ImgIcon source={{ uri: "https://proxyapp.correios.com.br" + object.lastUrlIcon }} /></Icon>
                 </ContainerIcon>
 
                 <WrapperInfo>
-                    <NameOfObject>Encomenda 01</NameOfObject>
-                    <CodeOfObject>LB2021343434P9</CodeOfObject>
-                    <DescCurrentStatus numberOfLines={1}>Objeto em trâsito. Por favor aguarda na...</DescCurrentStatus>
-                    <DatePostagenObject>10/07/2022</DatePostagenObject>
+                    <NameOfObject>{object.aliasOfObject}</NameOfObject>
+                    <CodeOfObject>{object.codeOfObject}</CodeOfObject>
+                    <DescCurrentStatus numberOfLines={1}>{object.lastDescOfObject}...</DescCurrentStatus>
+                    <DatePostagenObject>{format(object.lastDateOfObject, "dd/MM/yyyy", { locale: pt })}</DatePostagenObject>
                 </WrapperInfo>
 
                 <Action>

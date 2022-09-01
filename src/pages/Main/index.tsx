@@ -22,6 +22,7 @@ import waterMarkLight from "@assets/images/back-logo-light.png";
 import { useTheme } from "@hooks/useTheme";
 
 import { ObjectContext } from "../../context/MainContext";
+import { InterfaceObject } from "../..//reducers/mainReducer";
 
 export function Main ({ navigation, route }) {
 
@@ -29,8 +30,14 @@ export function Main ({ navigation, route }) {
 
     const objectIsEmpty = !objects.length;
 
-    function handleGoToDetail () {
-        navigation.navigate('Detail')
+    function handleGoToDetail (object: InterfaceObject) {
+
+        navigation.navigate('Detail', {
+            aliasOfObject: object.aliasOfObject,
+            codeOfObject: object.codeOfObject,
+            uuid: object.uuid,
+            typeOfDelivery: object.typeOfDelivery
+        })
     }
 
     const [_, colorScheme] = useTheme();
@@ -51,7 +58,7 @@ export function Main ({ navigation, route }) {
                 )}
 
                 {objects.map(object => (
-                    <CardItemObject key={object.uuid} onPress={handleGoToDetail} />
+                    <CardItemObject object={object} key={object.uuid} onPress={() => handleGoToDetail(object)} />
                 ))}
 
             </Scroll>

@@ -24,9 +24,14 @@ import { AlterNameOrder } from "./components/AlterNameOrder";
 
 import { Modalize } from "react-native-modalize";
 
-export function Detail ({ navigation }) {
+export function Detail ({ navigation, route }) {
 
     const modalizeRef = React.useRef<Modalize>(null);
+
+    const aliasOfObject = route.params.aliasOfObject;
+    const codeOfObject = route.params.codeOfObject;
+    const typeOfDelivery = route.params.typeOfDelivery;
+    const uuid = route.params.uuid;
 
     function handleEditNameOfOrder () {
         modalizeRef.current?.open();
@@ -45,20 +50,20 @@ export function Detail ({ navigation }) {
                         <ButtonGoBack onPress={navigation.goBack}>
                             <IconCaretLeft />
                         </ButtonGoBack>
-                        <ContainerLabelHeader>LB2021345445P8</ContainerLabelHeader>
+                        <ContainerLabelHeader>{codeOfObject}</ContainerLabelHeader>
                     </HeaderNavigation>
 
                     <Scroll>
 
                         <ContainerNameOfObject>
-                            <ContainerLabelNameOfObject>Encomenda 01</ContainerLabelNameOfObject>
+                            <ContainerLabelNameOfObject>{aliasOfObject}</ContainerLabelNameOfObject>
                             <ButtonEdit onPress={handleEditNameOfOrder}>
                                 <IconPencil />
                             </ButtonEdit>
                         </ContainerNameOfObject>
 
                         <TypeOfDelivery>
-                            <LabelTypeOfDelivery>Prime Exprés</LabelTypeOfDelivery>
+                            <LabelTypeOfDelivery>{typeOfDelivery}</LabelTypeOfDelivery>
                         </TypeOfDelivery>
 
                         <DescribleOfObject>
@@ -86,6 +91,7 @@ export function Detail ({ navigation }) {
 
             <AlterNameOrder
                 refModal={modalizeRef}
+                nameOfObject={aliasOfObject}
             />
 
         </>

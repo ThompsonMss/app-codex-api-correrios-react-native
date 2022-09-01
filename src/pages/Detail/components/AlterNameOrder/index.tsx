@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     ButtonClose,
     ContainerModal,
@@ -16,10 +16,12 @@ import { Platform } from 'react-native';
 
 interface InterfaceAlterNameOrder {
     refModal: React.MutableRefObject<Modalize>;
+    nameOfObject: string;
 }
 
-export function AlterNameOrder ({ refModal }: InterfaceAlterNameOrder) {
+export function AlterNameOrder ({ refModal, nameOfObject }: InterfaceAlterNameOrder) {
 
+    const [name, setName] = useState<string>(nameOfObject);
     const [inputFocused, setInputFocused] = React.useState(false)
 
     function handleOnCloseModal () {
@@ -46,6 +48,8 @@ export function AlterNameOrder ({ refModal }: InterfaceAlterNameOrder) {
                         value="Encomenda 01"
                         autoFocus
                         onSubmitEditing={() => alert('oi')}
+                        value={name}
+                        onChangeText={text => setName(text)}
                     />
 
                     <ButtonWithIcon
