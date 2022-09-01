@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
     Scroll,
@@ -24,24 +25,41 @@ import { useTheme } from "@hooks/useTheme";
 import { ObjectContext } from "../../context/MainContext";
 import { InterfaceObject } from "../..//reducers/mainReducer";
 
-export function Main ({ navigation, route }) {
+export function Main({ navigation, route }) {
 
-    const { objects } = useContext(ObjectContext);
+    const { objects, popularList } = useContext(ObjectContext);
 
     const objectIsEmpty = !objects.length;
 
-    function handleGoToDetail (object: InterfaceObject) {
-
-        navigation.navigate('Detail', {
-            aliasOfObject: object.aliasOfObject,
-            codeOfObject: object.codeOfObject,
-            uuid: object.uuid,
-            typeOfDelivery: object.typeOfDelivery
-        })
+    function handleGoToDetail(object: InterfaceObject) {
+        navigation.navigate('Detail', object);
     }
 
     const [_, colorScheme] = useTheme();
     const waterMark = colorScheme === "dark" ? waterMarkDark : waterMarkLight;
+
+    const [listPopulated, setListPopulated] = useState(false);
+
+    async function initializerPopularList() {
+
+        const value = await AsyncStorage.getItem('@codex__objects:1.0.0')
+
+        if (value) {
+            popularList(JSON.parse(value));
+        }
+
+        setListPopulated(true);
+    }
+
+    useEffect(() => {
+        initializerPopularList();
+    }, []);
+
+    useEffect(() => {
+        if (listPopulated) {
+            AsyncStorage.setItem('@codex__objects:1.0.0', JSON.stringify(objects)).then();
+        }
+    }, [objects, listPopulated]);
 
     return (
         <ContainerApp>

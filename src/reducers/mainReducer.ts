@@ -8,7 +8,8 @@ enum Types {
     INSERT_OBJECT = "INSERT_OBJECT",
     DELETE_OBJECT = "DELETE_OBJECT",
     UPDATE_ALIAS_OBJECT = "UPDATE_ALIAS_OBJECT",
-    UPDATE_LAST_EVENT_AND_STATUS_OBJECT = "UPDATE_LAST_EVENT_AND_STATUS_OBJECT"
+    UPDATE_LAST_EVENT_AND_STATUS_OBJECT = "UPDATE_LAST_EVENT_AND_STATUS_OBJECT",
+    POPULAR_LIST = "POPULAR_LIST"
 }
 
 /**
@@ -55,6 +56,10 @@ export function mainReducer(state: InterfaceObject[], action: { type: Types, pay
                     }
                 });
             });
+        case Types.POPULAR_LIST:
+            return produce(state, draft => {
+                draft = action.payload
+            });
         default:
             return state;
     }
@@ -63,6 +68,10 @@ export function mainReducer(state: InterfaceObject[], action: { type: Types, pay
 /**
  * Actions
  */
+
+export function popularListAction(data: InterfaceObject[]) {
+    return { type: Types.POPULAR_LIST, payload: data }
+}
 
 export function insertObjectAction(data: InterfaceObject) {
     return { type: Types.INSERT_OBJECT, payload: data }
