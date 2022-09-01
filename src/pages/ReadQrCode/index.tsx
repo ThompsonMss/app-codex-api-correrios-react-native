@@ -35,8 +35,8 @@ export function ReadQrCode ({ navigation }) {
     }, []);
 
     const handleBarCodeScanned = ({ type, data }) => {
-        setScanned(true); // Evitando loop.
-
+        setScanned(true);
+        navigation.navigate('Home', { qrCodecodeObject: data });
     };
 
     if (hasPermission === null) {

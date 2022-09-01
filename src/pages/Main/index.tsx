@@ -23,7 +23,7 @@ import { useTheme } from "@hooks/useTheme";
 
 import { ObjectContext } from "../../context/MainContext";
 
-export function Main ({ navigation }) {
+export function Main ({ navigation, route }) {
 
     const { objects } = useContext(ObjectContext);
 
@@ -41,7 +41,7 @@ export function Main ({ navigation }) {
             <Scroll stickyHeaderIndices={[1]}>
 
                 <ContainerLogo><Logo source={logotipo} /></ContainerLogo>
-                <SearchObject navigation={navigation} />
+                <SearchObject navigation={navigation} route={route} />
 
                 {objectIsEmpty && (
                     <EmptyObject>

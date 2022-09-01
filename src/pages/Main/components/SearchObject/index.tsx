@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 import {
@@ -16,30 +16,39 @@ import { apiCorreios } from '../../../../services/apiCorreios';
 import { ObjectContext } from "../../../../context/MainContext";
 import { parseISO } from "date-fns";
 
-export function SearchObject ({ navigation }: any) {
+export function SearchObject ({ navigation, route }: any) {
 
     const { objects, insertObject } = useContext(ObjectContext);
+
+    const qrCodecodeObject = route.params?.qrCodecodeObject;
 
     const [codeObject, setCodeObject] = useState('');
     const [onFocusInput, setOnFocusInput] = useState(false);
 
     const [load, setLoad] = useState(false);
 
+    useEffect(() => {
+        if (qrCodecodeObject) {
+            setCodeObject(qrCodecodeObject);
+            handleSearchObject(qrCodecodeObject);
+        }
+    }, [qrCodecodeObject]);
+
     function handleGoToReadQrCode () {
         navigation.navigate('ReadQrCode')
     }
 
-    async function handleSearchObject () {
+    async function handleSearchObject (code: string) {
         try {
 
             setLoad(true);
 
-            const data = await apiCorreios.obterDadosRastreioObjeto(codeObject);
+            const data = await apiCorreios.obterDadosRastreioObjeto(code);
             const lastEvent = data.eventos.shift();
 
             insertObject({
                 aliasOfObject: `Encomenda ${objects.length + 1}`,
-                codeOfObject: codeObject,
+                codeOfObject: code,
                 currentStatus: lastEvent.codigoStatus === "BDE" ? "ENTREGUE" : "PENDENTE",
                 lastDateOfObject: parseISO(lastEvent.dataStatus),
                 lastDescOfObject: lastEvent.descricao,
@@ -69,10 +78,10 @@ export function SearchObject ({ navigation }: any) {
                     onFocus={() => setOnFocusInput(true)}
                     value={codeObject}
                     onChangeText={text => setCodeObject(text)}
-                    onSubmitEditing={load ? () => null : handleSearchObject}
+                    onSubmitEditing={load ? () => null : () => handleSearchObject(codeObject)}
                 />
 
-                <Button onPress={load ? () => null : handleSearchObject}>
+                <Button onPress={load ? () => null : () => handleSearchObject(codeObject)}>
                     {load ? <Indicator /> : <IconMagnifyingGlass />}
                 </Button>
 
