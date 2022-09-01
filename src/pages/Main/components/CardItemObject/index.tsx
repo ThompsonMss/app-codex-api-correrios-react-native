@@ -23,7 +23,7 @@ interface InterfaceCardItemObject {
     object: InterfaceObject
 }
 
-export function CardItemObject ({ onPress, object }: InterfaceCardItemObject) {
+export function CardItemObject({ onPress, object }: InterfaceCardItemObject) {
 
     return (
         <Container onPress={onPress}>
@@ -37,7 +37,7 @@ export function CardItemObject ({ onPress, object }: InterfaceCardItemObject) {
                     <NameOfObject>{object.aliasOfObject}</NameOfObject>
                     <CodeOfObject>{object.codeOfObject}</CodeOfObject>
                     <DescCurrentStatus numberOfLines={1}>{object.lastDescOfObject}...</DescCurrentStatus>
-                    <DatePostagenObject>{format(parseISO(object.lastDateOfObject), "dd/MM/yyyy", { locale: pt })}</DatePostagenObject>
+                    <DatePostagenObject>{object.lastDateOfObject ? format(parseISO(object.lastDateOfObject), "dd/MM/yyyy", { locale: pt }) : ''}</DatePostagenObject>
                 </WrapperInfo>
 
                 <Action>

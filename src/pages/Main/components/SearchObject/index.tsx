@@ -39,6 +39,9 @@ export function SearchObject({ navigation, route }: any) {
     }
 
     async function handleSearchObject(code: string) {
+
+        if(!codeObject) return;
+
         try {
 
             setLoad(true);

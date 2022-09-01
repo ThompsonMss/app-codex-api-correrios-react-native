@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
     ButtonEdit,
     ButtonGoBack,
@@ -44,6 +44,8 @@ export function Detail({ navigation, route }) {
 
     const { error, loading, object } = useSearchObject(codeOfObject);
 
+    const [nameObject, setNameObject] = useState(aliasOfObject);
+
     function handleEditNameOfOrder() {
         modalizeRef.current?.open();
     };
@@ -74,6 +76,7 @@ export function Detail({ navigation, route }) {
     function updateLastEventOfObject() {
 
         const lastEvent = object.eventos.shift();
+
         updateLastEventAndStatusObject({
             uuid: uuid,
             data: {
@@ -95,6 +98,7 @@ export function Detail({ navigation, route }) {
 
     function alterNameOfObject(newName: string) {
         updateAliasObject({ uuid: uuid, newAlias: newName });
+        setNameObject(newName);
     }
 
     return (
@@ -112,7 +116,7 @@ export function Detail({ navigation, route }) {
                     <Scroll>
 
                         <ContainerNameOfObject>
-                            <ContainerLabelNameOfObject>{aliasOfObject}</ContainerLabelNameOfObject>
+                            <ContainerLabelNameOfObject>{nameObject}</ContainerLabelNameOfObject>
                             <ButtonEdit onPress={handleEditNameOfOrder}>
                                 <IconPencil />
                             </ButtonEdit>
@@ -131,7 +135,7 @@ export function Detail({ navigation, route }) {
                         {object?.eventos.map(evento => (
                             <DescribleOfObject>
                                 <BadgeStatus />
-                                <TextDescrible>{evento.descricao}. De {evento.unidadeOrigem.tipo} em {evento.unidadeOrigem.endereco}{evento?.unidadeDestino ? ` para ${evento.unidadeDestino.tipo} em ${evento.unidadeDestino.endereco}.` : '.'}</TextDescrible>
+                                <TextDescrible>{evento.descricao}{evento.unidadeOrigem.tipo && evento.unidadeOrigem.endereco ? `. De ${evento.unidadeOrigem.tipo} em ${evento.unidadeOrigem.endereco}` : ''}{evento?.unidadeDestino ? ` para ${evento.unidadeDestino.tipo} em ${evento.unidadeDestino.endereco}.` : '.'}</TextDescrible>
                                 <DatePostagemDescrible>{format(parseISO(evento.dataStatus), "dd/MM/yyyy HH:mm", { locale: pt })}</DatePostagemDescrible>
                             </DescribleOfObject>
                         ))}

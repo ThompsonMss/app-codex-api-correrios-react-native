@@ -26,7 +26,7 @@ export interface InterfaceObject {
     lastUrlIcon: string;
 }
 
-export function mainReducer (state: InterfaceObject[], action: { type: Types, payload: any }) {
+export function mainReducer(state: InterfaceObject[], action: { type: Types, payload: any }) {
     switch (action.type) {
         case Types.INSERT_OBJECT:
             return produce(state, draft => {
@@ -48,10 +48,10 @@ export function mainReducer (state: InterfaceObject[], action: { type: Types, pa
             return produce(state, draft => {
                 draft.forEach(object => {
                     if (object.uuid === action.payload.uuid) {
-                        object.currentStatus = action.payload.currentStatus;
-                        object.lastDateOfObject = action.payload.lastDateOfObject;
-                        object.lastDescOfObject = action.payload.lastDescOfObject;
-                        object.lastUrlIcon = action.payload.lastUrlIcon;
+                        object.currentStatus = action.payload.data.currentStatus;
+                        object.lastDateOfObject = action.payload.data.lastDateOfObject;
+                        object.lastDescOfObject = action.payload.data.lastDescOfObject;
+                        object.lastUrlIcon = action.payload.data.lastUrlIcon;
                     }
                 });
             });
@@ -64,7 +64,7 @@ export function mainReducer (state: InterfaceObject[], action: { type: Types, pa
  * Actions
  */
 
-export function insertObjectAction (data: InterfaceObject) {
+export function insertObjectAction(data: InterfaceObject) {
     return { type: Types.INSERT_OBJECT, payload: data }
 }
 
@@ -72,7 +72,7 @@ export interface InterfaceDeleteObjectAction {
     uuid: string
 }
 
-export function deleteObjectAction (data: InterfaceDeleteObjectAction) {
+export function deleteObjectAction(data: InterfaceDeleteObjectAction) {
     return { type: Types.DELETE_OBJECT, payload: { uuid: data.uuid } }
 }
 
@@ -81,7 +81,7 @@ export interface InterfaceUpdateAliasObjectAction {
     newAlias: string;
 }
 
-export function updateAliasObjectAction (data: InterfaceUpdateAliasObjectAction) {
+export function updateAliasObjectAction(data: InterfaceUpdateAliasObjectAction) {
     return { type: Types.UPDATE_ALIAS_OBJECT, payload: { uuid: data.uuid, newAlias: data.newAlias } }
 }
 
@@ -90,7 +90,7 @@ export interface InterfaceUpdateLastEventAndStatusObjectAction {
     data: Omit<InterfaceObject, 'uuid' | 'aliasOfObject' | 'codeOfObject' | 'typeOfDelivery'>;
 }
 
-export function updateLastEventAndStatusObjectAction (data: InterfaceUpdateLastEventAndStatusObjectAction) {
+export function updateLastEventAndStatusObjectAction(data: InterfaceUpdateLastEventAndStatusObjectAction) {
     return {
         type: Types.UPDATE_LAST_EVENT_AND_STATUS_OBJECT,
         payload: {

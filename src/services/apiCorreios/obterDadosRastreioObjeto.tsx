@@ -58,7 +58,7 @@ export interface InterfaceEventosObjeto {
   urlIcone: string;
 }
 
-export async function obterDadosRastreioObjeto (client: AxiosInstance, codRastreio: string): Promise<InterfaceDadosObjeto> {
+export async function obterDadosRastreioObjeto(client: AxiosInstance, codRastreio: string): Promise<InterfaceDadosObjeto> {
 
   const dataResponse: ServerResponse<DataResponseSuccess | DataResponseError>
     = await client.get(`/sro-rastro/${codRastreio}`);
@@ -74,15 +74,19 @@ export async function obterDadosRastreioObjeto (client: AxiosInstance, codRastre
       descricao: item.descricao,
       dataStatus: item.dtHrCriado,
       urlIcone: item.urlIcone,
-      unidadeOrigem: {
-        endereco: `${item.unidade.endereco.cidade} - ${item.unidade.endereco.uf}`,
+      unidadeOrigem: { endereco: '', tipo: '' }
+    }
+
+    if (item.unidade?.endereco?.cidade && item.unidade?.endereco?.uf) {
+      evento.unidadeOrigem = {
+        endereco: `${item.unidade.endereco.cidade}/${item.unidade.endereco.uf}`,
         tipo: item.unidade.tipo
-      }
+      };
     }
 
     if (item.unidadeDestino) {
       evento.unidadeDestino = {
-        endereco: `${item.unidadeDestino.endereco.cidade} - ${item.unidadeDestino.endereco.uf}`,
+        endereco: `${item.unidadeDestino.endereco.cidade}/${item.unidadeDestino.endereco.uf}`,
         tipo: item.unidadeDestino.tipo
       };
     }
