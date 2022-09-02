@@ -1,7 +1,7 @@
-# Aplicativo para rastreiar objetos do correios. (React Native)
+# Aplicativo para rastrear objetos do correios. (React Native)
 
 ## Intro
-### Aplicativo desenvolvido em React Native com Typescript utilizando o <b>Expo</b> e consumindo a API dos correrios para rastreiar pacotes.<br><br>
+### Aplicativo desenvolvido em React Native com Typescript utilizando o <b>Expo</b> e consumindo a API dos correrios para rastrear pacotes.<br><br>
 Foi utilizado diversos recursos do React Native para melhorar a performance, arquitetura e usabilidade do aplicativo.
 <br><br>
 > Alguns dos recursos utilizados.
