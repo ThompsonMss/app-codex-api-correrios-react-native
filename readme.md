@@ -9,6 +9,7 @@ Foi utilizado diversos recursos do React Native para melhorar a performance, arq
  - Context
  - useReducer
  - Custom Hooks
+ - AsyncStorage
  - Axios
  - ThemeProvider
  - Read QrCode
