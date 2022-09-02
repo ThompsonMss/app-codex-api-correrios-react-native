@@ -28,30 +28,30 @@ interface InterfaceObjectContext {
 
 export const ObjectContext = React.createContext({} as InterfaceObjectContext);
 
-export function MainContext({ children }: InterfaceMainContext) {
+export function MainContext ({ children }: InterfaceMainContext) {
 
 
     const initialStatte: InterfaceObject[] = [];
     const [state, dispatch] = React.useReducer(mainReducer, initialStatte);
 
-    function popularList(dataObjects: InterfaceObject[]) {
+    function popularList (dataObjects: InterfaceObject[]) {
         dispatch(popularListAction(dataObjects));
     }
 
-    function insertObject(data: Omit<InterfaceObject, 'uuid'>) {
+    function insertObject (data: Omit<InterfaceObject, 'uuid'>) {
         const uuid = String(new Date().getTime() + Math.random());
         dispatch(insertObjectAction({ ...data, uuid: uuid }));
     }
 
-    function deleteObject(data: InterfaceDeleteObjectAction) {
+    function deleteObject (data: InterfaceDeleteObjectAction) {
         dispatch(deleteObjectAction(data));
     }
 
-    function updateAliasObject(data: InterfaceUpdateAliasObjectAction) {
+    function updateAliasObject (data: InterfaceUpdateAliasObjectAction) {
         dispatch(updateAliasObjectAction(data));
     }
 
-    function updateLastEventAndStatusObject(data: InterfaceUpdateLastEventAndStatusObjectAction) {
+    function updateLastEventAndStatusObject (data: InterfaceUpdateLastEventAndStatusObjectAction) {
         dispatch(updateLastEventAndStatusObjectAction(data));
     }
 

@@ -27,7 +27,7 @@ export interface InterfaceObject {
     lastUrlIcon: string;
 }
 
-export function mainReducer(state: InterfaceObject[], action: { type: Types, payload: any }) {
+export function mainReducer (state: InterfaceObject[], action: { type: Types, payload: any }) {
     switch (action.type) {
         case Types.INSERT_OBJECT:
             return produce(state, draft => {
@@ -59,6 +59,7 @@ export function mainReducer(state: InterfaceObject[], action: { type: Types, pay
         case Types.POPULAR_LIST:
             return produce(state, draft => {
                 draft = action.payload
+                return draft;
             });
         default:
             return state;
@@ -69,11 +70,11 @@ export function mainReducer(state: InterfaceObject[], action: { type: Types, pay
  * Actions
  */
 
-export function popularListAction(data: InterfaceObject[]) {
+export function popularListAction (data: InterfaceObject[]) {
     return { type: Types.POPULAR_LIST, payload: data }
 }
 
-export function insertObjectAction(data: InterfaceObject) {
+export function insertObjectAction (data: InterfaceObject) {
     return { type: Types.INSERT_OBJECT, payload: data }
 }
 
@@ -81,7 +82,7 @@ export interface InterfaceDeleteObjectAction {
     uuid: string
 }
 
-export function deleteObjectAction(data: InterfaceDeleteObjectAction) {
+export function deleteObjectAction (data: InterfaceDeleteObjectAction) {
     return { type: Types.DELETE_OBJECT, payload: { uuid: data.uuid } }
 }
 
@@ -90,7 +91,7 @@ export interface InterfaceUpdateAliasObjectAction {
     newAlias: string;
 }
 
-export function updateAliasObjectAction(data: InterfaceUpdateAliasObjectAction) {
+export function updateAliasObjectAction (data: InterfaceUpdateAliasObjectAction) {
     return { type: Types.UPDATE_ALIAS_OBJECT, payload: { uuid: data.uuid, newAlias: data.newAlias } }
 }
 
@@ -99,7 +100,7 @@ export interface InterfaceUpdateLastEventAndStatusObjectAction {
     data: Omit<InterfaceObject, 'uuid' | 'aliasOfObject' | 'codeOfObject' | 'typeOfDelivery'>;
 }
 
-export function updateLastEventAndStatusObjectAction(data: InterfaceUpdateLastEventAndStatusObjectAction) {
+export function updateLastEventAndStatusObjectAction (data: InterfaceUpdateLastEventAndStatusObjectAction) {
     return {
         type: Types.UPDATE_LAST_EVENT_AND_STATUS_OBJECT,
         payload: {

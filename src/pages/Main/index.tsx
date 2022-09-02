@@ -25,13 +25,13 @@ import { useTheme } from "@hooks/useTheme";
 import { ObjectContext } from "../../context/MainContext";
 import { InterfaceObject } from "../..//reducers/mainReducer";
 
-export function Main({ navigation, route }) {
+export function Main ({ navigation, route }) {
 
     const { objects, popularList } = useContext(ObjectContext);
 
     const objectIsEmpty = !objects.length;
 
-    function handleGoToDetail(object: InterfaceObject) {
+    function handleGoToDetail (object: InterfaceObject) {
         navigation.navigate('Detail', object);
     }
 
@@ -40,7 +40,7 @@ export function Main({ navigation, route }) {
 
     const [listPopulated, setListPopulated] = useState(false);
 
-    async function initializerPopularList() {
+    async function initializerPopularList () {
 
         const value = await AsyncStorage.getItem('@codex__objects:1.0.0')
 
